@@ -1,4 +1,4 @@
 plugins { id 'com.android.application' version '8.7.3' }
 android { namespace 'com.multicall.audio'; compileSdk 35
 defaultConfig { applicationId 'com.multicall.audio'; minSdk 26; targetSdk 32; versionCode (System.getenv('GITHUB_RUN_NUMBER') ?: '2').toInteger(); versionName '1.' + (System.getenv('GITHUB_RUN_NUMBER') ?: '2') } }
-dependencies { implementation 'dev.rikka.shizuku:api:13.1.5'; implementation 'dev.rikka.shizuku:provider:13.1.5' }
+dependencies { implementation 'androidx.core:core:1.13.1'; implementation 'dev.rikka.shizuku:api:13.1.5'; implementation 'dev.rikka.shizuku:provider:13.1.5' }
