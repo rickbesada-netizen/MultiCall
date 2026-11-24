@@ -32,8 +32,10 @@ jobs:
         with:
           path: ~/.android/debug.keystore
           key: multicall-signing-key-v1
-      - run: gradle assembleDebug
+      - run: gradle assembleDebug --stacktrace
       - run: echo "$GITHUB_RUN_NUMBER" > version.txt
+      - name: Verify APK exists
+        run: test -s app/build/outputs/apk/debug/app-debug.apk
       - run: cp app/build/outputs/apk/debug/app-debug.apk MultiCall.apk
       - uses: actions/upload-artifact@v4
         with:
