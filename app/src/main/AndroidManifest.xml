@@ -1,1 +1,55 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"><uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/><uses-permission android:name="android.permission.INTERNET"/><uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/><queries><intent><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent><package android:name="com.duolingo"/><package android:name="com.samsung.android.soundassistant"/><package android:name="com.microsoft.teams"/><package android:name="us.zoom.videomeetings"/><package android:name="com.google.android.apps.meetings"/></queries><application android:label="MultiCall" android:icon="@drawable/ic_multicall" android:roundIcon="@drawable/ic_multicall" android:theme="@android:style/Theme.Material.NoActionBar" android:allowBackup="false"><provider android:name="androidx.core.content.FileProvider" android:authorities="com.multicall.audio.updates" android:exported="false" android:grantUriPermissions="true"><meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/update_paths"/></provider><activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity></application></manifest>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent>
+        <package android:name="com.duolingo"/>
+        <package android:name="com.samsung.android.soundassistant"/>
+        <package android:name="com.microsoft.teams"/>
+        <package android:name="us.zoom.videomeetings"/>
+        <package android:name="com.google.android.apps.meetings"/>
+        <package android:name="com.google.android.apps.tachyon"/>
+        <package android:name="moe.shizuku.privileged.api"/>
+    </queries>
+
+    <application
+        android:label="MultiCall"
+        android:icon="@drawable/ic_multicall"
+        android:roundIcon="@drawable/ic_multicall"
+        android:theme="@android:style/Theme.Material.NoActionBar"
+        android:allowBackup="false">
+
+        <!-- Required: this is how Shizuku hands its binder to the app.
+             Without it Shizuku.pingBinder() is always false. -->
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:multiprocess="false"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.multicall.audio.updates"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/update_paths"/>
+        </provider>
+
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
