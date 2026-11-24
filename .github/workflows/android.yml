@@ -20,7 +20,20 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+      - name: Restore persistent signing key
+        env:
+          SIGNING_KEY: ${{ secrets.MULTICALL_SIGNING_KEY }}
+        run: |
+          mkdir -p ~/.android
+          if [ -n "$SIGNING_KEY" ]; then
+            echo "$SIGNING_KEY" | base64 -d > ~/.android/debug.keystore
+          fi
+      - uses: actions/cache@v4
+        with:
+          path: ~/.android/debug.keystore
+          key: multicall-signing-key-v1
       - run: gradle assembleDebug
+      - run: echo "$GITHUB_RUN_NUMBER" > version.txt
       - run: cp app/build/outputs/apk/debug/app-debug.apk MultiCall.apk
       - uses: actions/upload-artifact@v4
         with:
@@ -31,4 +44,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release view android-latest >/dev/null 2>&1 || gh release create android-latest --target "$GITHUB_SHA" --title "MultiCall Android" --notes "Experimental Android audio utility." --latest
-          gh release upload android-latest MultiCall.apk --clobber
+          gh release upload android-latest MultiCall.apk version.txt --clobber
