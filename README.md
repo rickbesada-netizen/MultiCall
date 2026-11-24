@@ -1,0 +1,2 @@
+# MultiCall
+Experimental Samsung Android audio utility. Install Sound Assistant and enable Multi Sound for all apps. Join a meeting, return home, and test media playback. Android may still enforce call routing or focus. The Duolingo focus experiment requires running Shizuku with shell permissions; TAKE_AUDIO_FOCUS support varies by firmware. Restore resets the operation to default. This does not mute individual apps: use Sound Assistant per-app volume for that. No guarantee of simultaneous playback. Build via Actions, download MultiCall-APK artifact.
